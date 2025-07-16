@@ -91,13 +91,15 @@
 
     .chat-input {
       display: flex;
+      flex-direction: column;
       padding: 10px;
       border-top: 1px solid #144552;
       background-color: #0d2b34;
+      gap: 8px;
     }
 
+    #username,
     #message {
-      flex: 1;
       padding: 10px 15px;
       border: none;
       border-radius: 30px;
@@ -105,10 +107,10 @@
       font-size: 14px;
       background: #1b3b4f;
       color: #fff;
+      width: 100%;
     }
 
     button {
-      margin-left: 10px;
       padding: 10px 18px;
       border: none;
       background: linear-gradient(135deg, #00c6ff, #0072ff);
@@ -132,21 +134,15 @@
     </div>
     <div class="chat-messages" id="chat"></div>
     <div class="chat-input">
-      <input type="text" id="message" placeholder="Type something..." />
+      <input type="text" id="username" placeholder="Your name" />
+      <input type="text" id="message" placeholder="Type your message..." />
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
   <script src="https://js.pusher.com/8.2/pusher.min.js"></script>
   <script>
-    // Set username
-    let username = localStorage.getItem('chat-username');
-    if (!username) {
-      username = prompt("Enter your name:");
-      localStorage.setItem('chat-username', username);
-    }
-
-    // Pusher Setup
+    // Setup Pusher
     var pusher = new Pusher('0772e0e26ef6881f31ee', {
       cluster: 'ap2'
     });
@@ -158,7 +154,9 @@
       const user = document.createElement('div');
       const msg = document.createElement('div');
 
-      wrapper.className = 'message ' + (data.username === username ? 'sent' : 'received');
+      const inputUsername = document.getElementById('username').value || 'Anonymous';
+
+      wrapper.className = 'message ' + (data.username === inputUsername ? 'sent' : 'received');
       user.className = 'username';
       msg.textContent = data.message;
       user.textContent = data.username;
@@ -168,23 +166,22 @@
       chat.appendChild(wrapper);
       chat.scrollTop = chat.scrollHeight;
     });
-function sendMessage() {
-  const input = document.getElementById('message');
-  const message = input.value.trim();
-  const username = document.getElementById('username')?.value || 'Anonymous';
 
-  if (!message) return;
+    function sendMessage() {
+      const input = document.getElementById('message');
+      const username = document.getElementById('username').value.trim() || 'Anonymous';
+      const message = input.value.trim();
 
-  fetch('https://back-production-4542.up.railway.app/send', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, username })
-  });
+      if (!message) return;
 
-  input.value = '';
-}
+      fetch('https://back-production-4542.up.railway.app/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, username })
+      });
 
-    
+      input.value = '';
+    }
   </script>
 </body>
 </html>
