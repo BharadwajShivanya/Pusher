@@ -1,119 +1,9 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Chat App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .chat-container {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 400px;
-      max-width: 90%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .messages {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      height: 300px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .message {
-      margin-bottom: 10px;
-      padding: 10px;
-      background: #e4e6eb;
-      border-radius: 8px;
-      max-width: 80%;
-    }
-
-    .input-area {
-      display: flex;
-      padding: 10px;
-      background: #fafafa;
-    }
-
-    #message {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      margin-left: 10px;
-      padding: 10px 20px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-  <div class="chat-container">
-    <div class="messages" id="chat"></div>
-    <div class="input-area">
-      <input type="text" id="message" placeholder="Type a message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
-
-  <script src="https://js.pusher.com/8.2/pusher.min.js"></script>
-  <script>
-    var pusher = new Pusher('0772e0e26ef6881f31ee', {
-      cluster: 'ap2'
-    });
-
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      const chat = document.getElementById('chat');
-      const msg = document.createElement('div');
-      msg.className = 'message';
-      msg.innerText = data.message;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-    });
-
-    function sendMessage() {
-      const input = document.getElementById('message');
-      const message = input.value;
-
-      fetch('http://localhost:3000/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message })
-      });
-
-      input.value = '';
-    }
-  </script>
-</body>
-</html>
- -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Colorful Chat App</title>
+  <title>ALDO Chat</title>
   <style>
     * {
       box-sizing: border-box;
@@ -123,7 +13,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f7f8f8, #acbb78);
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -133,33 +23,41 @@
     .chat-wrapper {
       width: 400px;
       height: 600px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(14px);
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .chat-header {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #007991, #78ffd6);
       color: white;
-      padding: 16px;
-      text-align: center;
+      padding: 12px 16px;
       font-size: 20px;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-header img {
+      height: 28px;
+      width: auto;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
     }
 
     .chat-messages {
       flex: 1;
       padding: 15px;
       overflow-y: auto;
-      background: url('https://transparenttextures.com/patterns/white-wall.png');
+      background: #001c27;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .message {
@@ -170,31 +68,32 @@
       position: relative;
       font-size: 14px;
       line-height: 1.4;
+      color: white;
     }
 
     .sent {
       align-self: flex-end;
-      background: linear-gradient(to left, #84fab0, #8fd3f4);
+      background: linear-gradient(to left, #43cea2, #185a9d);
       border-bottom-right-radius: 0;
     }
 
     .received {
       align-self: flex-start;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      background: linear-gradient(to right, #134e5e, #71b280);
       border-bottom-left-radius: 0;
     }
 
     .username {
       font-size: 11px;
-      margin-bottom: 3px;
-      color: #555;
+      margin-bottom: 4px;
+      color: #b5f5ff;
     }
 
     .chat-input {
       display: flex;
       padding: 10px;
-      border-top: 1px solid #ddd;
-      background-color: rgba(255, 255, 255, 0.6);
+      border-top: 1px solid #144552;
+      background-color: #0d2b34;
     }
 
     #message {
@@ -204,13 +103,15 @@
       border-radius: 30px;
       outline: none;
       font-size: 14px;
+      background: #1b3b4f;
+      color: #fff;
     }
 
     button {
       margin-left: 10px;
       padding: 10px 18px;
       border: none;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
       color: white;
       border-radius: 30px;
       cursor: pointer;
@@ -219,13 +120,16 @@
     }
 
     button:hover {
-      background: linear-gradient(135deg, #ff6a88, #ff99ac);
+      background: linear-gradient(135deg, #0575e6, #021b79);
     }
   </style>
 </head>
 <body>
   <div class="chat-wrapper">
-    <div class="chat-header">✨ Real time Chat ✨</div>
+    <div class="chat-header">
+      <img src="white@4x-100.jpg" alt="ALDO Logo" />
+      ALDO Chat
+    </div>
     <div class="chat-messages" id="chat"></div>
     <div class="chat-input">
       <input type="text" id="message" placeholder="Type something..." />
@@ -235,13 +139,14 @@
 
   <script src="https://js.pusher.com/8.2/pusher.min.js"></script>
   <script>
-    // Set username once per browser tab
+    // Set username
     let username = localStorage.getItem('chat-username');
     if (!username) {
       username = prompt("Enter your name:");
       localStorage.setItem('chat-username', username);
     }
 
+    // Pusher Setup
     var pusher = new Pusher('0772e0e26ef6881f31ee', {
       cluster: 'ap2'
     });
@@ -267,7 +172,6 @@
     function sendMessage() {
       const input = document.getElementById('message');
       const message = input.value.trim();
-
       if (!message) return;
 
       fetch('http://localhost:3000/send', {
@@ -281,4 +185,3 @@
   </script>
 </body>
 </html>
-
