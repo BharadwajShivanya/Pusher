@@ -168,20 +168,23 @@
       chat.appendChild(wrapper);
       chat.scrollTop = chat.scrollHeight;
     });
+function sendMessage() {
+  const input = document.getElementById('message');
+  const message = input.value.trim();
+  const username = document.getElementById('username')?.value || 'Anonymous';
 
-    function sendMessage() {
-      const input = document.getElementById('message');
-      const message = input.value.trim();
-      if (!message) return;
+  if (!message) return;
 
-      fetch('https://back-production-4542.up.railway.app/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, username })
-      });
+  fetch('https://back-production-4542.up.railway.app/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, username })
+  });
 
-      input.value = '';
-    }
+  input.value = '';
+}
+
+    
   </script>
 </body>
 </html>
