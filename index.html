@@ -174,8 +174,7 @@
 
       if (!message) return;
 
-      fetch('https://back-production-4542.up.railway.app/send', {
-        method: 'POST',
+const backendURL        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, username })
       });
