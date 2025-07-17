@@ -149,8 +149,6 @@
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function(data) {
-      console.log('📥 Pusher message:', data); // ✅ Console log added
-
       const chat = document.getElementById('chat');
       const wrapper = document.createElement('div');
       const user = document.createElement('div');
@@ -176,8 +174,7 @@
 
       if (!message) return;
 
-      fetch('http://localhost:8080/send', {
-        method: 'POST',
+const backendURL        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, username })
       });
